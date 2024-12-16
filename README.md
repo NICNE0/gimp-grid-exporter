@@ -14,7 +14,7 @@ This plugin helps you detect and export cells from an existing grid layer in a G
 - Allows selective ignoring of background and grid layers during export.
 
 ## Installation
-> [Download the latest release now](https://github.com/NICNE0/gimp-grid-generator/archive/refs/tags/v1.0.0.zip)
+> [Download the latest release now](https://github.com/NICNE0/gimp-grid-exporter/archive/refs/tags/v1.0.0.zip)
 
 1. Save the plugin script `export_grid_cells_plugin.py` (rename the provided code if necessary) into your GIMP plug-ins directory:
    - On macOS: `~/Library/Application Support/GIMP/2.10/plug-ins`
@@ -72,7 +72,7 @@ If multiple cells come from the same top contributing layer, files will be uniqu
   - Ensure that layers above the grid have visible pixels in their cells.
 
 ## Contributing
-Feel free to contribute by suggesting new features, reporting issues, or submitting pull requests on [GitHub](https://github.com/NICNE0/gimp-grid-generator).
+Feel free to contribute by suggesting new features, reporting issues, or submitting pull requests on [GitHub](https://github.com/NICNE0/gimp-grid-exporter).
 
 ## Licensing and Additional Information
 This project is licensed under the MIT License. See the LICENSE file for more details.
