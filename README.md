@@ -1,4 +1,5 @@
 # Export Layers from GIMP Grid Generator
+> This Plugin works in combination with the [GIMP Grid Generator Plugin](https://github.com/NICNE0/gimp-grid-generator)
 
 **Version:** 1.0.0  
 **Website:** [Check our website](https://www.brundisium.org/recursos/plugins)
