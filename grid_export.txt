@@ -1,0 +1,118 @@
+===============================================================================
+                       Export Layers from GIMP Grid Generator
+===============================================================================
+
+Version: 1.0.0
+Website: Check our website at https://www.brundisium.org/recursos/plugins
+
+-------------------------------------------------------------------------------
+                                  OVERVIEW
+-------------------------------------------------------------------------------
+This plugin helps you detect and export cells from an existing grid layer in
+a GIMP project. It scans your image for grid lines, identifies the cells
+formed, and exports the contents of each non-empty cell. Unlike simply slicing
+an image, this plugin intelligently determines the top contributing layer of
+each cell and names the resulting files accordingly. It is perfect for
+extracting assets from templated grids, sprite sheets, or other structured
+images.
+
+-------------------------------------------------------------------------------
+                                  FEATURES
+-------------------------------------------------------------------------------
+* Automatically detect horizontal and vertical grid lines from a specified 
+  grid layer.
+* Identify non-empty cells and export them as individual PNG files.
+* Determine the topmost contributing layer for each cell and name the file 
+  after that layer.
+* Works with grayscale and RGBA images.
+* Allows selective ignoring of background and grid layers during export.
+
+-------------------------------------------------------------------------------
+                                INSTALLATION
+-------------------------------------------------------------------------------
+Download the latest release now:
+https://github.com/NICNE0/gimp-grid-generator/archive/refs/tags/v1.0.0.zip
+
+1. Save the plugin script (for example, export_grid_cells_plugin.py) into your
+   GIMP plug-ins directory:
+   - On macOS:    ~/Library/Application Support/GIMP/2.10/plug-ins
+   - On Linux:     ~/.config/GIMP/2.10/plug-ins
+   - On Windows:   %AppData%\GIMP\2.10\plug-ins
+
+2. Make the script executable:
+   chmod +x export_grid_cells_plugin.py
+
+3. Restart GIMP.
+
+4. The plugin will appear under:
+   Toolbox > Filters > Custom > Export Grid Cells
+
+-------------------------------------------------------------------------------
+                                   USAGE
+-------------------------------------------------------------------------------
+1. Prepare an image with a detected grid layer (for example, named "Grid"), and
+   optionally a background layer (for example, named "Background").
+
+2. Navigate to:
+   Toolbox > Filters > Custom > Export Grid Cells
+
+3. Configure the plugin parameters:
+   - Save Directory: The folder where exported cells will be saved.
+   - Grid Layer Name: The name of the layer containing the grid lines 
+     (default: "Grid").
+   - Background Layer Name: The name of the background layer (default: 
+     "Background").
+
+4. Click "OK" to run the plugin. The plugin will:
+   - Detect grid cells.
+   - Identify non-empty cells.
+   - Determine the top layer contributing pixels to that cell.
+   - Export each non-empty cell as a PNG file named after the top contributing
+     layer.
+   
+   If multiple cells come from the same top contributing layer, the files will
+   be uniquely suffixed to avoid overwriting.
+
+-------------------------------------------------------------------------------
+                           EXAMPLE CONFIGURATIONS
+-------------------------------------------------------------------------------
+Basic Export:
+-------------
+Save Directory: /path/to/export
+Grid Layer Name: Grid
+Background Layer Name: Background
+
+This configuration will scan the grid, ignore the background and grid layers,
+and export all non-empty cells to the specified directory.
+
+-------------------------------------------------------------------------------
+                               TROUBLESHOOTING
+-------------------------------------------------------------------------------
+Plugin Doesn’t Appear in the Menu:
+- Ensure the script is placed in the correct plug-ins directory.
+- Verify that the file is executable (chmod +x).
+- Restart GIMP after installation.
+
+Grid Detection Failed:
+- Make sure the grid layer is correctly named and visible.
+- Check that the grid lines are not too faint.
+
+No Suitable Cells Found:
+- Confirm that your grid layer forms clear, distinct cells.
+- Ensure that layers above the grid have visible pixels in their cells.
+
+-------------------------------------------------------------------------------
+                                CONTRIBUTING
+-------------------------------------------------------------------------------
+Feel free to contribute by suggesting new features, reporting issues, or 
+submitting pull requests on GitHub:
+https://github.com/NICNE0/gimp-grid-generator
+
+-------------------------------------------------------------------------------
+                    LICENSING AND ADDITIONAL INFORMATION
+-------------------------------------------------------------------------------
+This project is licensed under the MIT License. See the LICENSE file for 
+details.
+
+As the project evolves, consider adding more examples, configurations, or 
+frequently asked questions to this document.
