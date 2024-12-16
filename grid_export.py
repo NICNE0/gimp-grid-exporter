@@ -110,26 +110,31 @@ def copy_visible_pixels(img, x, y, width, height):
     pdb.gimp_selection_none(img)
     return pixel_count
 
+def flatten_layers(layers):
+    """
+    Recursively flatten all layers, including those inside layer groups.
+    Returns a list of individual layers.
+    """
+    flat_layers = []
+    for layer in layers:
+        if pdb.gimp_item_is_group(layer):  # Check if the layer is a group
+            flat_layers.extend(flatten_layers(layer.children))  # Recurse into the group
+        else:
+            flat_layers.append(layer)
+    return flat_layers
+
 def find_top_contributing_layer(img, x, y, width, height, background_layer, grid_layer):
     """
-    Identify the topmost contributing layer.
-    Strategy:
-    - Hide background and grid layers.
-    - We'll progressively reveal layers from top to bottom:
-      1. Check each layer alone. If any single layer alone shows pixels, return it.
-      2. If no single layer alone shows pixels, build up layers from top down:
-         Start with the top layer visible. If no pixels, add the next layer below and check again.
-         Repeat until pixels appear. The layer that was just added when pixels appear is the contributor.
+    Identify the topmost contributing layer, ignoring layer groups.
     """
-
     # Save current visibility states
-    layers_visibility = [(layer, layer.visible) for layer in img.layers]
+    layers_visibility = [(layer, layer.visible) for layer in flatten_layers(img.layers)]
 
     # Determine layers to consider (all visible layers except background and grid)
-    candidate_layers = [l for l in img.layers if l != background_layer and l != grid_layer and l.visible]
+    candidate_layers = [l for l, visible in layers_visibility if l != background_layer and l != grid_layer and visible]
 
     # Hide all layers initially
-    for (l, orig_vis) in layers_visibility:
+    for (l, _) in layers_visibility:
         pdb.gimp_layer_set_visible(l, False)
 
     # Phase 1: Check each layer alone
@@ -139,31 +144,23 @@ def find_top_contributing_layer(img, x, y, width, height, background_layer, grid
             # Restore original visibility
             for (lyr, orig_vis) in layers_visibility:
                 pdb.gimp_layer_set_visible(lyr, orig_vis)
-            return layer.name
-        # Hide again before next test
+            return layer.name  # Use individual layer's name
         pdb.gimp_layer_set_visible(layer, False)
 
     # Phase 2: Build up from the top layer down until pixels appear
-    visible_stack = []
     for layer in candidate_layers:
-        # Add this layer to the visible stack
         pdb.gimp_layer_set_visible(layer, True)
-        visible_stack.append(layer)
-
-        pixel_count = copy_visible_pixels(img, x, y, width, height)
-        if pixel_count > 0:
-            # The content appeared after adding this layer,
-            # which means this layer is actually providing the visible pixels
-            name = layer.name
+        if copy_visible_pixels(img, x, y, width, height) > 0:
             # Restore original visibility
             for (lyr, orig_vis) in layers_visibility:
                 pdb.gimp_layer_set_visible(lyr, orig_vis)
-            return name
+            return layer.name
 
-    # If we reach here, no pixels even after showing all candidate layers
+    # Restore original visibility and return default if no pixels found
     for (lyr, orig_vis) in layers_visibility:
         pdb.gimp_layer_set_visible(lyr, orig_vis)
     return "UnnamedLayer"
+
 
 def export_cells(img, drawable, save_dir, grid_layer_name, background_layer_name):
     pdb.gimp_message("Starting grid cell export...")
