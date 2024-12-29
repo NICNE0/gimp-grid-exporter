@@ -40,7 +40,7 @@ This plugin helps you detect and export cells from an existing grid layer in a G
 
 ## Usage
 1. Prepare an image with a detected grid layer (e.g., a layer named "Grid") and optionally a background layer (e.g., named "Background").
-2. Navigate to `Toolbox > Filters > Custom > Export Grid Cells`.
+2. Navigate to `Toolbox > Filters > Custom > Grid Exporter`.
 3. Configure the plugin parameters:
    
    - **Save Directory:** Specify the folder where exported cells will be saved.
