@@ -17,7 +17,7 @@ This plugin helps you detect and export cells from an existing grid layer in a G
 ## Installation
 > [Download the latest release now](https://github.com/NICNE0/gimp-grid-exporter/archive/refs/tags/v1.0.0.zip)
 
-1. Save the plugin script `export_grid_cells_plugin.py` (rename the provided code if necessary) into your GIMP plug-ins directory:
+1. Save the plugin script `grid_export.py` (rename the provided code if necessary) into your GIMP plug-ins directory:
    - On macOS: `~/Library/Application Support/GIMP/2.10/plug-ins`
    - On Linux: `~/.config/GIMP/2.10/plug-ins`
    - On Windows: `%AppData%\GIMP\2.10\plug-ins`
